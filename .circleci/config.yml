@@ -21,6 +21,12 @@ jobs:
     steps:
       - checkout
       - run: npm audit
+  audit:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - run: npm audit fix
 
 workflows:
   my_workflow:
@@ -32,3 +38,6 @@ workflows:
       - analyze:
           requires:
             - test
+      - audit:
+          requires:
+            - analyze
